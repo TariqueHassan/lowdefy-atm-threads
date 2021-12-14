@@ -1,0 +1,233 @@
+{
+  "id": "page:welcome",
+  "type": "PageHeaderMenu",
+  "events": {
+    "onEnter": {
+      "try": [
+        {
+          "id": "init_data",
+          "type": "Request",
+          "params": "my_request"
+        },
+        {
+          "id": "start_refresh",
+          "type": "JsAction",
+          "params": {
+            "name": "pollRequest",
+            "args": [
+              "my_request"
+            ]
+          }
+        }
+      ],
+      "catch": []
+    }
+  },
+  "auth": {
+    "public": true
+  },
+  "pageId": "welcome",
+  "blockId": "welcome",
+  "meta": {
+    "category": "context",
+    "loading": {
+      "type": "Spinner",
+      "properties": {
+        "height": "100vh"
+      }
+    },
+    "moduleFederation": {
+      "module": "PageHeaderMenu",
+      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+      "version": "3.23.1",
+      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+    }
+  },
+  "requests": [
+    {
+      "id": "request:welcome:welcome:my_request",
+      "type": "AxiosHttp",
+      "connectionId": "my_connection",
+      "auth": {
+        "public": true
+      },
+      "requestId": "my_request",
+      "contextId": "welcome"
+    }
+  ],
+  "areas": {
+    "content": {
+      "blocks": [
+        {
+          "id": "block:welcome:content_card",
+          "type": "Card",
+          "layout": {
+            "size": 900,
+            "contentGutter": 16
+          },
+          "blockId": "content_card",
+          "meta": {
+            "category": "container",
+            "loading": {
+              "type": "Skeleton",
+              "properties": {
+                "height": 80
+              }
+            },
+            "moduleFederation": {
+              "module": "Card",
+              "scope": "_at_lowdefy_slash_blocks_dash_antd",
+              "version": "3.23.1",
+              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+            }
+          },
+          "areas": {
+            "content": {
+              "blocks": [
+                {
+                  "id": "block:welcome:message_title_id",
+                  "type": "Title",
+                  "layout": {
+                    "align": "middle",
+                    "span": 6
+                  },
+                  "properties": {
+                    "content": "Message Count",
+                    "level": 3
+                  },
+                  "blockId": "message_title_id",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.1",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:welcome:basic_example",
+                  "type": "Html",
+                  "layout": {
+                    "span": 5
+                  },
+                  "properties": {
+                    "html": "<div style=\" border: 2px outset black;background-color: lightblue;text-align: center;\"><h1 style=\"color: black;\">Message Count: </h1></div>\n",
+                    "_request": "my_request.data.length"
+                  },
+                  "blockId": "basic_example",
+                  "meta": {
+                    "category": "display",
+                    "loading": false,
+                    "moduleFederation": {
+                      "module": "Html",
+                      "scope": "_at_lowdefy_slash_blocks_dash_basic",
+                      "version": "3.23.1",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-basic/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:welcome:echart_id",
+                  "type": "EChart",
+                  "layout": {
+                    "span": 22
+                  },
+                  "properties": {
+                    "option": {
+                      "dataset": {
+                        "source": {
+                          "_request": "my_request.data"
+                        }
+                      },
+                      "xAxis": {
+                        "type": "category"
+                      },
+                      "yAxis": {
+                        "type": "value"
+                      },
+                      "series": [
+                        {
+                          "type": "line",
+                          "name": "My Series",
+                          "encode": {
+                            "x": "oneMinRate",
+                            "y": "count"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "blockId": "echart_id",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "Skeleton",
+                      "properties": {
+                        "height": 300
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "EChart",
+                      "scope": "_at_lowdefy_slash_blocks_dash_echarts",
+                      "version": "3.23.1",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-echarts/remoteEntry.js"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "block:welcome:response",
+          "type": "Markdown",
+          "properties": {
+            "content": {
+              "_nunjucks": {
+                "template": "```\n# Postman response\n{{ data | safe }}\n```\n",
+                "on": {
+                  "data": {
+                    "_yaml.stringify": [
+                      {
+                        "_request": "my_request.data.5.count"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "blockId": "response",
+          "meta": {
+            "category": "container",
+            "loading": {
+              "type": "SkeletonParagraph",
+              "properties": {
+                "lines": 7
+              }
+            },
+            "moduleFederation": {
+              "module": "Markdown",
+              "scope": "_at_lowdefy_slash_blocks_dash_markdown",
+              "version": "3.23.1",
+              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-markdown/remoteEntry.js"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "operators": [
+    "_request",
+    "_yaml",
+    "_nunjucks"
+  ]
+}

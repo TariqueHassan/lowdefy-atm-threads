@@ -1,0 +1,88 @@
+id: new-bar-chart
+type: PageHeaderMenu
+properties:
+  title: New ticket # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+
+app:
+  html:
+    appendHead: |
+      <script>
+        function pollRequest(context, requestId) {
+          setInterval(() => context.actions.Request(requestId), 1000);
+        }
+        window.lowdefy.registerJsAction('pollRequest', pollRequest);
+      </script>
+events:
+    onEnter:
+      # - id: fetch_get_posts
+      #   type: Request
+      #   params: get_posts
+
+      - id: init_data
+        type: Request
+        params: get_posts
+
+      - id: start_refresh
+        type: JsAction
+        params:
+          name: pollRequest
+          args:
+            - get_posts
+
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 900 # Set the size of the card so it does not fill the full screen.
+      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+    blocks:
+      - id: message_title_id
+        type: Title
+        layout:
+          align: middle
+          span: 6 # Two thirds of the area
+        properties:
+          content: Message Count
+          level: 3
+      
+
+      - id: message_count_id
+        type: Title
+        layout:
+          align: middle
+          span: 2 # Two thirds of the area
+        properties:
+          content:
+            # _request: my_request.data.5.count # Change the title on the page.
+            _request:
+              my_request.data.length # Change the title on the page.
+              # my_request.data.5.count
+            
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+
+      - id: block_id
+        type: EChart
+        layout:
+          span: 22 # Two thirds of the area
+        properties:
+          option:
+            dataset:              
+              source:
+                # Use request operator to read request response
+                # This request should probably be fetched in the page onEnterAsync event.
+                _request: my_request.data
+                
+            xAxis:
+              type: category
+              # properties:
+              #   title: Input title
+            yAxis:
+              type: value
+            series:
+              - type: line
+                name: My Series
+                encode:
+                  x: oneMinRate
+                  y: count

@@ -1,0 +1,23 @@
+id: js-action-test
+type: PageHeaderMenu
+properties:
+  title: jsAction Testing # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+
+app:
+  html:
+    appendBody: |
+      <script>
+        function setIntercomUser(context) {
+           alert('hi jsaction');
+        }
+        window.lowdefy.registerJsAction('setIntercomUser', setIntercomUser);
+      </script>
+
+events:
+  onInitAsync:
+    - id: set_intercom_user
+      type: JsAction
+      params:
+        name: setIntercomUser

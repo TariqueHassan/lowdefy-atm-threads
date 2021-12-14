@@ -1,0 +1,6 @@
+{
+  "html": {
+    "appendHead": "<script>\n  function pollRequest(context, requestId) {\n    setInterval(() => context.actions.Request(requestId), 1000);\n  }\n  window.lowdefy.registerJsAction('pollRequest', pollRequest);\n</script>\n",
+    "appendBody": ""
+  }
+}

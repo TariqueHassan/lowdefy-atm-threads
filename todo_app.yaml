@@ -1,0 +1,53 @@
+id: todo_app_ticket
+type: PageHeaderMenu
+properties:
+  title: New ticket # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+
+blocks:
+  - id: page_heading
+    type: TextInput
+    properties:
+      content: Kafka Messaging Details # Change the title on the page.
+      level: 3 # Make the title a little smaller (an html `<h3>`).
+
+  - id: todo_app
+    type: Box
+    layout:
+      contentGutter: 16
+    blocks:
+      - id: todo_input
+        type: TextInput
+        layout:
+          grow: 1
+        properties:
+          label:
+            disabled: true
+          placeholder: Write something todo...
+  - id: add_item
+    type: Button
+    properties:
+      title: Add item
+      icon: PlusOutlined
+    events:
+      onClick:
+        - id: add
+          type: SetState
+          params:
+            todos:
+              _array.concat:
+                - - _state: page_heading
+                - _state: todos
+            page_heading: null
+  - id: todos
+    type: List
+    layout:
+      contentGutter: 16
+    blocks:
+      - id: todos.$
+        type: TitleInput
+        layout:
+          grow: 1
+        properties:
+          level: 1

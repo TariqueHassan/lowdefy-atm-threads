@@ -1,0 +1,272 @@
+lowdefy: 3.23.1
+name: Lowdefy starter
+
+connections:
+  - id: my_connection
+    type: AxiosHttp
+    properties:
+      baseURL: http://localhost:8080 #https://postman-echo.com
+app:
+  html:
+    appendHead: |
+      <script>
+        function pollRequest(context, requestId) {
+          setInterval(() => context.actions.Request(requestId), 1000);
+        }
+        window.lowdefy.registerJsAction('pollRequest', pollRequest);
+      </script>
+pages:
+  - _ref: html-testing.yaml
+  - id: welcome
+    type: PageHeaderMenu
+    requests:
+      - id: my_request
+        type: AxiosHttp
+        connectionId: my_connection
+        properties:
+          url: /fruits/messaages
+          # url: q/metrics/application
+          headers:
+            content-type: application/json
+          # method: post
+          data:
+            call_time:
+              _date: now
+    events:
+      onEnter:
+        - id: init_data
+          type: Request
+          params: my_request
+        - id: start_refresh
+          type: JsAction
+          params:
+            name: pollRequest
+            args:
+              - my_request
+    blocks:
+      - id: content_card
+        type: Card
+        layout:
+          size: 900 # Set the size of the card so it does not fill the full screen.
+          contentGutter: 16 # Make a 16px gap between all blocks in this card.
+        blocks:
+          - id: message_title_id
+            type: Title
+            layout:
+              align: middle
+              span: 6 # Two thirds of the area
+            properties:
+              content: Message Count
+              level: 3
+          
+          - id: basic_example
+            type: Html
+            layout:
+              span: 5
+            properties:
+              html: >
+                <div style=" border: 2px outset black;background-color: lightblue;text-align: center;"><h1 style="color: black;">Message Count: </h1></div>
+              
+              _request:
+                my_request.data.length
+
+          # - id: message_count_id
+          #   type: Title
+          #   layout:
+          #     align: middle
+          #     span: 2 # Two thirds of the area
+          #   properties:
+          #     content:
+          #       # _request: my_request.data.5.count # Change the title on the page.
+          #       _request:
+          #         my_request.data.length # Change the title on the page.
+          #         # my_request.data.5.count
+                
+          #     level: 3 # Make the title a little smaller (an html `<h3>`).
+
+          - id: echart_id
+            type: EChart
+            layout:
+              span: 22 # Two thirds of the area
+            properties:
+              option:
+                dataset:              
+                  source:
+                    # Use request operator to read request response
+                    # This request should probably be fetched in the page onEnterAsync event.
+                    _request: my_request.data
+                    
+                xAxis:
+                  type: category
+                  # properties:
+                  #   title: Input title
+                yAxis:
+                  type: value
+                series:
+                  - type: line
+                    name: My Series
+                    encode:
+                      x: oneMinRate
+                      y: count
+      
+      - id: response
+        type: Markdown
+        properties:
+          content:
+            _nunjucks:
+              template: |
+                ```
+                # Postman response
+                {{ data | safe }}
+                ```
+              on:
+                data:
+                  _yaml.stringify:
+                    - _request: my_request.data.5.count
+
+      # - id: response
+      #   type: Markdown
+      #   properties:
+      #     content:
+      #       _nunjucks:
+      #         template: |
+      #           ```
+      #           # Postman response
+      #           {{ data | safe }}
+      #           ```
+      #         on:
+      #           data:
+      #             _yaml.stringify:
+      #               - _request: my_request
+     
+
+
+
+
+     # connections:
+#   - id: my_connection
+#     type: AxiosHttp
+#     properties:
+#       baseURL: http://localhost:8080 #https://postman-echo.com
+# app:
+#   html:
+#     appendHead: |
+#       <script>
+#         async function fetchRequest(context, requestId) {
+#           const tempResponse = await context.actions.Request(requestId);
+#           context.actions.SetState({ data: tempResponse.data.length, tempResponse });
+#         }
+#         function pollRequest(context, requestId) {
+#           setInterval(() => context.actions.Request(requestId), 1000);
+#         }
+#         window.lowdefy.registerJsAction('pollRequest', pollRequest);
+#       </script>
+# pages:
+#   - id: welcome
+#     type: PageHeaderMenu
+#     properties:
+#       title: data_request
+#     requests:
+#       - id: datarequestid
+#         type: AxiosHttp
+#         connectionId: my_connection
+#         properties:
+#           url: /fruits/messaages
+#             # _secret: TMP_REQUEST
+#           # method: get
+#           headers:
+#             content-type: application/json
+#           # method: post
+#           data:
+#             call_time:
+#               _date: now
+#     layout:
+#       contentGutter: 16
+#     events:
+#       onEnter:
+#         - id: fetchTempDataList
+#           type: Request
+#           params: datarequestid
+#         - id: start_refresh
+#           type: JsAction
+#           params:
+#             name: pollRequest
+#             args:
+#               - datarequestid
+#         - id: setTempDataList
+#           type: SetState
+#           params:
+#             tempResponse:
+#               _request: datarequestid
+#             data:
+#               _array.length:
+#                 _request: datarequestid
+#         - id: call_execfetchrequest
+#           type: JsAction
+#           params:
+#             name: pollRequest
+#             args:
+#               - datarequestid
+#     blocks:
+#       - id: content_card
+#         type: Card
+#         layout:
+#           size: 900 # Set the size of the card so it does not fill the full screen.
+#           contentGutter: 16 # Make a 16px gap between all blocks in this card.
+      
+#       - id: add_item
+#         type: Button
+#         properties:
+#           title: Add count
+#           icon: PlusOutlined
+#         events:
+#           onClick:
+#             - id: add
+#               type: SetState
+#               params:
+#                 todos:
+#                   _array.concat:
+#                     - - _state: datarequestid
+#                     - _state: todos
+#                 datarequestid: null
+
+#       - id: todos
+#         type: List
+#         layout:
+#           contentGutter: 16
+#         blocks:
+#           - id: todos.$
+#             type: TitleInput
+#             layout:
+#               grow: 1
+#             properties:
+#               level: 4
+
+#       - id: testing
+#         type: TextInput
+
+        
+#       - id: block_id
+#         type: EChart
+#         layout:
+#           span: 22 # Two thirds of the area
+#         properties:
+#           option:
+#             dataset:              
+#               source:
+#                 # Use request operator to read request response
+#                 # This request should probably be fetched in the page onEnterAsync event.
+#                 _request: datarequestid.data
+#             xAxis:
+#                   type: category
+#                   # properties:
+#                   #   title: Input title
+#             yAxis:
+#               type: value
+#             series:
+#               - type: line
+#                 name: My Series
+#                 encode:
+#                   x: oneMinRate
+#                   y: count
+

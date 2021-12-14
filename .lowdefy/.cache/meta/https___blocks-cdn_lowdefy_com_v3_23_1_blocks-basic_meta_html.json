@@ -1,0 +1,32 @@
+{
+  "category": "display",
+  "loading": false,
+  "schema": {
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "html": {
+          "type": "string",
+          "description": "Content to be rendered as Html.",
+          "docs": {
+            "displayType": "text-area"
+          }
+        },
+        "style": {
+          "type": "object",
+          "description": "Css style object to apply to Html div.",
+          "docs": {
+            "displayType": "yaml"
+          }
+        }
+      }
+    }
+  },
+  "moduleFederation": {
+    "module": "Html",
+    "scope": "_at_lowdefy_slash_blocks_dash_basic",
+    "version": "3.23.1",
+    "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-basic/remoteEntry.js"
+  }
+}

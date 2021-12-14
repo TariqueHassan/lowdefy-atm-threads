@@ -1,0 +1,59 @@
+{
+  "id": "page:html-testing",
+  "type": "PageHeaderMenu",
+  "properties": {
+    "title": "HTML ticket"
+  },
+  "layout": {
+    "contentJustify": "center"
+  },
+  "auth": {
+    "public": true
+  },
+  "pageId": "html-testing",
+  "blockId": "html-testing",
+  "meta": {
+    "category": "context",
+    "loading": {
+      "type": "Spinner",
+      "properties": {
+        "height": "100vh"
+      }
+    },
+    "moduleFederation": {
+      "module": "PageHeaderMenu",
+      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+      "version": "3.23.1",
+      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+    }
+  },
+  "requests": [],
+  "areas": {
+    "content": {
+      "blocks": [
+        {
+          "id": "block:html-testing:basic_example",
+          "type": "Html",
+          "layout": {
+            "span": 5
+          },
+          "properties": {
+            "html": "<div style=\" border: 2px outset black;background-color: lightblue;text-align: center;\"><h1 style=\"color: black;\">A simple white title box</h1></div>\n"
+          },
+          "blockId": "basic_example",
+          "meta": {
+            "category": "display",
+            "loading": false,
+            "moduleFederation": {
+              "module": "Html",
+              "scope": "_at_lowdefy_slash_blocks_dash_basic",
+              "version": "3.23.1",
+              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-basic/remoteEntry.js"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "operators": []
+}
