@@ -1,0 +1,407 @@
+{
+  "id": "page:new-bar-chart",
+  "type": "PageHeaderMenu",
+  "properties": {
+    "title": "Dashboard",
+    "logo": {
+      "alt": "Bank Al Habib",
+      "src": "/public/download.png",
+      "style": {
+        "border-radius": "8px;",
+        "width": "20px",
+        "height": "60px"
+      }
+    }
+  },
+  "layout": {
+    "contentJustify": "center"
+  },
+  "events": {
+    "onEnter": {
+      "try": [
+        {
+          "id": "init_data",
+          "type": "Request",
+          "params": "my_request"
+        },
+        {
+          "id": "start_refresh",
+          "type": "JsAction",
+          "params": {
+            "name": "pollRequest",
+            "args": [
+              "my_request"
+            ]
+          }
+        }
+      ],
+      "catch": []
+    }
+  },
+  "auth": {
+    "public": true
+  },
+  "pageId": "new-bar-chart",
+  "blockId": "new-bar-chart",
+  "meta": {
+    "category": "context",
+    "loading": {
+      "type": "Spinner",
+      "properties": {
+        "height": "100vh"
+      }
+    },
+    "moduleFederation": {
+      "module": "PageHeaderMenu",
+      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+      "version": "3.23.2",
+      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+    }
+  },
+  "requests": [
+    {
+      "id": "request:new-bar-chart:new-bar-chart:my_request",
+      "type": "AxiosHttp",
+      "connectionId": "my_api",
+      "auth": {
+        "public": true
+      },
+      "requestId": "my_request",
+      "contextId": "new-bar-chart"
+    }
+  ],
+  "areas": {
+    "content": {
+      "blocks": [
+        {
+          "id": "block:new-bar-chart:content_card",
+          "type": "Card",
+          "layout": {
+            "size": 1200,
+            "contentGutter": 16
+          },
+          "blockId": "content_card",
+          "meta": {
+            "category": "container",
+            "loading": {
+              "type": "Skeleton",
+              "properties": {
+                "height": 80
+              }
+            },
+            "moduleFederation": {
+              "module": "Card",
+              "scope": "_at_lowdefy_slash_blocks_dash_antd",
+              "version": "3.23.2",
+              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+            }
+          },
+          "areas": {
+            "content": {
+              "blocks": [
+                {
+                  "id": "block:new-bar-chart:page_heading",
+                  "type": "Title",
+                  "properties": {
+                    "content": "ATM Thread Messaging Details",
+                    "level": 1,
+                    "color": "black"
+                  },
+                  "blockId": "page_heading",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": "Total Messages",
+                    "color": "#8F938A",
+                    "level": 3
+                  },
+                  "blockId": "block_id",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_1",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": {
+                      "_request": "my_request.data.length"
+                    },
+                    "color": "#8F938A",
+                    "level": 3
+                  },
+                  "blockId": "block_id_1",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_2",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": "Total Sending Messages",
+                    "level": 3,
+                    "color": "#FFC300"
+                  },
+                  "blockId": "block_id_2",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_3",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": {
+                      "_request": "my_request.data.length"
+                    },
+                    "color": "#FFC300",
+                    "level": 3
+                  },
+                  "blockId": "block_id_3",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_4",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": "Total Response Messages",
+                    "level": 3,
+                    "color": "#7EB92E"
+                  },
+                  "blockId": "block_id_4",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_5",
+                  "type": "Title",
+                  "layout": {
+                    "span": 4
+                  },
+                  "properties": {
+                    "content": {
+                      "_request": "my_request.data.length"
+                    },
+                    "color": "#7EB92E",
+                    "level": 3
+                  },
+                  "blockId": "block_id_5",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "SkeletonParagraph",
+                      "properties": {
+                        "lines": 1
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "Title",
+                      "scope": "_at_lowdefy_slash_blocks_dash_antd",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_6",
+                  "type": "EChart",
+                  "layout": {
+                    "span": 12
+                  },
+                  "properties": {
+                    "option": {
+                      "dataset": {
+                        "source": {
+                          "_request": "my_request.data"
+                        }
+                      },
+                      "xAxis": {
+                        "type": "category"
+                      },
+                      "yAxis": {
+                        "type": "value"
+                      },
+                      "series": [
+                        {
+                          "type": "line",
+                          "name": "My Series",
+                          "encode": {
+                            "x": "oneMinRate",
+                            "y": "count"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "blockId": "block_id_6",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "Skeleton",
+                      "properties": {
+                        "height": 300
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "EChart",
+                      "scope": "_at_lowdefy_slash_blocks_dash_echarts",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-echarts/remoteEntry.js"
+                    }
+                  }
+                },
+                {
+                  "id": "block:new-bar-chart:block_id_7",
+                  "type": "EChart",
+                  "layout": {
+                    "span": 12
+                  },
+                  "properties": {
+                    "option": {
+                      "dataset": {
+                        "source": {
+                          "_request": "my_request.data"
+                        }
+                      },
+                      "xAxis": {
+                        "type": "category"
+                      },
+                      "yAxis": {
+                        "type": "value"
+                      },
+                      "series": [
+                        {
+                          "type": "bar",
+                          "name": "My Series",
+                          "encode": {
+                            "x": "oneMinRate",
+                            "y": "count"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "blockId": "block_id_7",
+                  "meta": {
+                    "category": "display",
+                    "loading": {
+                      "type": "Skeleton",
+                      "properties": {
+                        "height": 300
+                      }
+                    },
+                    "moduleFederation": {
+                      "module": "EChart",
+                      "scope": "_at_lowdefy_slash_blocks_dash_echarts",
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-echarts/remoteEntry.js"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "operators": [
+    "_request"
+  ]
+}

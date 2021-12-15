@@ -1,8 +1,0 @@
-{
-  "id": "connection:my_connection",
-  "type": "AxiosHttp",
-  "properties": {
-    "baseURL": "http://localhost:8080"
-  },
-  "connectionId": "my_connection"
-}

@@ -1,0 +1,22 @@
+{
+  "id": "request:new-bar-chart:new-bar-chart:my_request",
+  "type": "AxiosHttp",
+  "connectionId": "my_api",
+  "properties": {
+    "url": "/fruits/messaages",
+    "method": "get",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "data": {
+      "call_time": {
+        "_date": "now"
+      }
+    }
+  },
+  "auth": {
+    "public": true
+  },
+  "requestId": "my_request",
+  "contextId": "new-bar-chart"
+}

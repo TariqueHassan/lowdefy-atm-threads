@@ -1,79 +1,151 @@
 id: new-bar-chart
 type: PageHeaderMenu
 properties:
-  title: New ticket # The title in the browser tab.
+  title: Dashboard # The title in the browser tab.
+  logo:
+    alt: Bank Al Habib
+    src: /public/download.png
+    style:
+      border-radius: 8px;
+      width: 20px
+      height: 60px
 layout:
   contentJustify: center # Center the contents of the page.
 
-app:
-  html:
-    appendHead: |
-      <script>
-        function pollRequest(context, requestId) {
-          setInterval(() => context.actions.Request(requestId), 1000);
-        }
-        window.lowdefy.registerJsAction('pollRequest', pollRequest);
-      </script>
+requests:
+  - id: my_request
+    type: AxiosHttp
+    connectionId: my_api
+    properties:
+      url: /fruits/messaages
+      method: get
+      headers:
+        content-type: application/json
+      data:
+        call_time:
+          _date: now
+      
+  # - id: my_request_1
+  #   type: AxiosHttp
+  #   connectionId: my_api_1
+  #   properties:
+  #     url: /q/metrics/application
+  #     method: get
+  #     headers:
+  #       content-type: application/json
+
 events:
-    onEnter:
-      # - id: fetch_get_posts
-      #   type: Request
-      #   params: get_posts
+  onEnter:
+    - id: init_data
+      type: Request
+      params: my_request
+      
+    - id: start_refresh
+      type: JsAction
+      params:
+        name: pollRequest
+        args:
+          - my_request
 
-      - id: init_data
-        type: Request
-        params: get_posts
-
-      - id: start_refresh
-        type: JsAction
-        params:
-          name: pollRequest
-          args:
-            - get_posts
+    # - id: init_data_1
+    #   type: Request
+    #   params: my_request_1
+    # - id: start_refresh
+    #   type: JsAction
+    #   params:
+    #     name: pollRequest
+    #     args:
+    #       - my_request_1
 
 blocks:
   - id: content_card
     type: Card
     layout:
-      size: 900 # Set the size of the card so it does not fill the full screen.
+      size: 1200 # Set the size of the card so it does not fill the full screen.
       contentGutter: 16 # Make a 16px gap between all blocks in this card.
     blocks:
-      - id: message_title_id
+      - id: page_heading
         type: Title
-        layout:
-          align: middle
-          span: 6 # Two thirds of the area
         properties:
-          content: Message Count
-          level: 3
-      
-
-      - id: message_count_id
-        type: Title
-        layout:
-          align: middle
-          span: 2 # Two thirds of the area
-        properties:
-          content:
-            # _request: my_request.data.5.count # Change the title on the page.
-            _request:
-              my_request.data.length # Change the title on the page.
-              # my_request.data.5.count
-            
-          level: 3 # Make the title a little smaller (an html `<h3>`).
+          content: ATM Thread Messaging Details # Change the title on the page.
+          level: 1 # Make the title a little smaller (an html `<h3>`).
+          color: "black"
+          # mark: true
 
       - id: block_id
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content: Total Messages
+          color: "#8F938A"
+          level: 3
+
+      - id: block_id_1
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content:
+            # _request: my_request_1.data.itemsProcessed.count
+            _request: 
+              my_request.data.length
+          color: "#8F938A"
+          level: 3
+
+      - id: block_id_2
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content: Total Sending Messages
+          level: 3
+          color: "#FFC300"
+
+      - id: block_id_3
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content:
+            _request: 
+              my_request.data.length
+          color: "#FFC300"
+          level: 3
+
+      - id: block_id_4
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content: Total Response Messages
+          level: 3
+          color: "#7EB92E"
+
+      - id: block_id_5
+        type: Title
+        layout:
+          span: 4 # Two thirds of the area
+        properties:
+          content:
+            _request: 
+              my_request.data.length
+          color: "#7EB92E"
+          level: 3    
+
+      - id: block_id_6
         type: EChart
         layout:
-          span: 22 # Two thirds of the area
+          span: 12 # Two thirds of the area
         properties:
           option:
-            dataset:              
+            dataset:
               source:
                 # Use request operator to read request response
                 # This request should probably be fetched in the page onEnterAsync event.
-                _request: my_request.data
-                
+                _request: 
+                  my_request.data
+
             xAxis:
               type: category
               # properties:
@@ -82,6 +154,32 @@ blocks:
               type: value
             series:
               - type: line
+                name: My Series
+                encode:
+                  x: oneMinRate
+                  y: count
+
+      - id: block_id_7
+        type: EChart
+        layout:
+          span: 12 # Two thirds of the area
+        properties:
+          option:
+            dataset:
+              source:
+                # Use request operator to read request response
+                # This request should probably be fetched in the page onEnterAsync event.
+                _request: 
+                  my_request.data
+
+            xAxis:
+              type: category
+              # properties:
+              #   title: Input title
+            yAxis:
+              type: value
+            series:
+              - type: bar
                 name: My Series
                 encode:
                   x: oneMinRate

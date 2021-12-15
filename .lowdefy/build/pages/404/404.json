@@ -15,8 +15,8 @@
     "moduleFederation": {
       "module": "Context",
       "scope": "_at_lowdefy_slash_blocks_dash_basic",
-      "version": "3.23.1",
-      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-basic/remoteEntry.js"
+      "version": "3.23.2",
+      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-basic/remoteEntry.js"
     }
   },
   "requests": [],
@@ -65,8 +65,8 @@
                     "moduleFederation": {
                       "module": "Button",
                       "scope": "_at_lowdefy_slash_blocks_dash_antd",
-                      "version": "3.23.1",
-                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+                      "version": "3.23.2",
+                      "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
                     }
                   }
                 }
@@ -85,8 +85,8 @@
             "moduleFederation": {
               "module": "Result",
               "scope": "_at_lowdefy_slash_blocks_dash_antd",
-              "version": "3.23.1",
-              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.1/blocks-antd/remoteEntry.js"
+              "version": "3.23.2",
+              "remoteEntryUrl": "https://blocks-cdn.lowdefy.com/v3.23.2/blocks-antd/remoteEntry.js"
             }
           }
         }

@@ -3,22 +3,30 @@
     "id": "menu:default",
     "links": [
       {
-        "id": "menuitem:default:0",
+        "id": "menuitem:default:welcome",
         "type": "MenuLink",
-        "pageId": "html-testing",
-        "auth": {
-          "public": true
+        "properties": {
+          "icon": "HomeOutlined",
+          "title": "Home"
         },
-        "menuItemId": "0"
-      },
-      {
-        "id": "menuitem:default:1",
-        "type": "MenuLink",
         "pageId": "welcome",
         "auth": {
           "public": true
         },
-        "menuItemId": "1"
+        "menuItemId": "welcome"
+      },
+      {
+        "id": "menuitem:default:new-bar-chart",
+        "type": "MenuLink",
+        "properties": {
+          "icon": "AlertOutlined",
+          "title": "Dashboard"
+        },
+        "pageId": "new-bar-chart",
+        "auth": {
+          "public": true
+        },
+        "menuItemId": "new-bar-chart"
       }
     ],
     "menuId": "default"
